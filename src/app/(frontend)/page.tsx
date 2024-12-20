@@ -15,7 +15,7 @@ export default function Home() {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-6 z-30">
               <h2 className="text-2xl font-bold mb-2">Original Music</h2>
-              <p className="text-gray-200">Explore Brian Mathew's original compositions</p>
+              <p className="text-gray-200">Explore Brian Mathew&apos;s original compositions</p>
             </div>
           </Link>
 
