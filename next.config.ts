@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  api: {
+    bodyParser: {
+      sizeLimit: '30mb' 
+    },
+    responseLimit: '30mb'
+  }
 };
 
 export default withPayload(nextConfig);
