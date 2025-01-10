@@ -10,6 +10,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { MediaWithPrefix } from './collections/MediaWithPrefix'
 import { Pages } from './collections/Pages'
 import { Discography } from './collections/Discography'
 
@@ -23,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Pages, Discography],
+  collections: [Users, Media, MediaWithPrefix, Pages, Discography],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -38,8 +39,7 @@ export default buildConfig({
   plugins: [
     payloadCloudPlugin(),
     vercelBlobStorage({
-      enabled: true, // Optional, defaults to true
-      // Specify which collections should use Vercel Blob
+      enabled: true,
       collections: {
         media: true,
         'media-with-prefix': {
