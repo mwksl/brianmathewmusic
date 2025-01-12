@@ -32,8 +32,30 @@ export default async function MusicPage() {
                 key={album.id} 
                 className="group relative p-4 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300"
               >
-                <h3 className="text-xl font-playfair mb-2">{album.title}</h3>
-                <p className="text-gray-600 font-inter">{album.description}</p>
+                <h3 className="text-xl font-playfair mb-2">{album.albumTitle}</h3>
+                <p className="text-gray-600 font-inter">{album.artist}</p>
+                {album.roles && album.roles.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {album.roles.map((role, index) => (
+                      <span 
+                        key={index}
+                        className="text-sm px-2 py-1 bg-gray-100 rounded-full text-gray-600"
+                      >
+                        {role.role}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {album.spotifyUrl && (
+                  <a 
+                    href={album.spotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-green-600 hover:text-green-700 transition-colors"
+                  >
+                    Listen on Spotify
+                  </a>
+                )}
               </div>
             ))}
           </div>

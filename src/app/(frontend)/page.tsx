@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+import { Media } from '@/payload-types';
 
 async function getNavigation() {
   const payload = await getPayload({
@@ -19,6 +20,19 @@ export default async function Home() {
   const musicNav = navItems.find(item => item.path === '/music');
   const studioNav = navItems.find(item => item.path === '/studio');
 
+  const getMusicImageUrl = () => {
+    if (!musicNav?.image || typeof musicNav.image === 'number') return '';
+    return (musicNav.image as Media).url || '';
+  };
+
+  const getStudioImageUrl = () => {
+    if (!studioNav?.image || typeof studioNav.image === 'number') return '';
+    return (studioNav.image as Media).url || '';
+  };
+
+  const musicImageUrl = getMusicImageUrl();
+  const studioImageUrl = getStudioImageUrl();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       <div className="container mx-auto px-4">
@@ -29,10 +43,10 @@ export default async function Home() {
           {/* Original Music Side */}
           <Link href="/music" className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
             <div className="aspect-[4/3] relative bg-gray-100">
-              {musicNav?.image && (
+              {musicImageUrl && (
                 <Image
-                  src={musicNav.image.url}
-                  alt={musicNav.title}
+                  src={musicImageUrl}
+                  alt={musicNav?.title || 'Original Music'}
                   fill
                   className="object-cover"
                   priority
@@ -49,10 +63,10 @@ export default async function Home() {
           {/* Studio Side */}
           <Link href="/studio" className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
             <div className="aspect-[4/3] relative bg-gray-100">
-              {studioNav?.image && (
+              {studioImageUrl && (
                 <Image
-                  src={studioNav.image.url}
-                  alt={studioNav.title}
+                  src={studioImageUrl}
+                  alt={studioNav?.title || 'Studio'}
                   fill
                   className="object-cover"
                   priority
