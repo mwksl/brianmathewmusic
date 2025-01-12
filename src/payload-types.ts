@@ -218,10 +218,11 @@ export interface Studio {
 export interface Music {
   id: number;
   about: string;
-  spotifyEmbeds?:
+  spotify_embeds?:
     | {
         embedUrl: string;
         title: string;
+        description?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -439,11 +440,12 @@ export interface StudioSelect<T extends boolean = true> {
  */
 export interface MusicSelect<T extends boolean = true> {
   about?: T;
-  spotifyEmbeds?:
+  spotify_embeds?:
     | T
     | {
         embedUrl?: T;
         title?: T;
+        description?: T;
         id?: T;
       };
   updatedAt?: T;
