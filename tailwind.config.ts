@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)"],
+        inter: ["var(--font-inter)"],
+        playfair: ["var(--font-playfair)"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
