@@ -8,13 +8,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)"],
-        inter: ["var(--font-inter)"],
-        playfair: ["var(--font-playfair)"],
+        mono: ["var(--font-space-mono)"],
+        heading: ["var(--font-custom)"],
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        accent: "var(--accent)",
+        "accent-light": "var(--accent-light)",
+        "text-muted": "var(--text-muted)",
       },
     },
   },

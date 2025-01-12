@@ -34,49 +34,48 @@ export default async function Home() {
   const studioImageUrl = getStudioImageUrl();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-6xl text-center font-playfair mb-12">
-          Brian Mathew
-        </h1>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          {/* Original Music Side */}
-          <Link href="/music" className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="aspect-[4/3] relative bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center grid-texture">
+      <div className="container mx-auto px-4 py-16">
+        <h1 className="font-heading text-6xl md:text-8xl text-accent mb-12">Brian Mathew</h1>
+        
+        <div className="grid md:grid-cols-2 gap-16 max-w-7xl mx-auto relative">
+          <div className="absolute inset-0 bg-accent/5 -rotate-1 rounded-3xl transform -translate-y-4 translate-x-4" />
+          
+          <Link href="/music" 
+                className="group relative md:translate-y-12">
+            <div className="aspect-[3/4] relative overflow-hidden rounded-2xl shadow-lg">
               {musicImageUrl && (
                 <Image
                   src={musicImageUrl}
                   alt={musicNav?.title || 'Original Music'}
                   fill
-                  className="object-cover"
-                  priority
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 saturate-50"
                 />
               )}
-              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-all duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h2 className="text-2xl font-playfair mb-2 text-white">{musicNav?.title || 'Original Music'}</h2>
-                <p className="text-white text-lg">{musicNav?.description || 'Explore Brian Mathew\'s original compositions'}</p>
-              </div>
+              <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
+            </div>
+            <div className="mt-6 transform -rotate-1">
+              <h2 className="text-4xl mb-3 font-heading">{musicNav?.title || 'Original Music'}</h2>
+              <p className="font-mono text-sm text-text-muted">{musicNav?.description || 'Explore compositions'}</p>
             </div>
           </Link>
 
-          {/* Studio Side */}
-          <Link href="/studio" className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="aspect-[4/3] relative bg-gray-100">
+          <Link href="/studio"
+                className="group relative md:-translate-y-12">
+            <div className="aspect-[3/4] relative overflow-hidden rounded-2xl shadow-lg">
               {studioImageUrl && (
                 <Image
                   src={studioImageUrl}
-                  alt={studioNav?.title || 'Studio'}
+                  alt={studioNav?.title || 'Studio Work'}
                   fill
-                  className="object-cover"
-                  priority
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 saturate-50"
                 />
               )}
-              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-all duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h2 className="text-2xl font-playfair mb-2 text-white">{studioNav?.title || 'Studio'}</h2>
-                <p className="text-white text-lg">{studioNav?.description || 'Recording, Mixing, & Production Services'}</p>
-              </div>
+              <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
+            </div>
+            <div className="mt-6 transform rotate-1">
+              <h2 className="text-4xl mb-3 font-heading">{studioNav?.title || 'Studio Work'}</h2>
+              <p className="font-mono text-sm text-text-muted">{studioNav?.description || 'Recording & Production'}</p>
             </div>
           </Link>
         </div>

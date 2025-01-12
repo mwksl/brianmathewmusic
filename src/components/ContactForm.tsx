@@ -52,7 +52,9 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="max-w-3xl mx-auto px-6 py-16" ref={formRef}>
+    <section id="contact" className="max-w-3xl mx-auto px-6 py-16 relative" ref={formRef}>
+      <div className="absolute inset-0 grid-texture opacity-50" />
+      
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -61,9 +63,10 @@ export default function ContactForm() {
           ease: [0.21, 1.11, 0.81, 0.99],
           delay: 0.2
         }}
+        className="relative"
       >
-        <h2 className="text-4xl font-playfair mb-3 text-gray-900">Get in Touch</h2>
-        <p className="text-lg text-gray-600 mb-8 font-light">
+        <h2 className="text-4xl mb-3 font-heading transform -rotate-1">Get in Touch</h2>
+        <p className="font-mono text-sm text-text-muted mb-8 transform rotate-1">
           Have a project in mind? Let&apos;s create something amazing together.
         </p>
 
@@ -73,10 +76,10 @@ export default function ContactForm() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg"
+            className="mb-6 p-4 bg-accent/10 text-accent rounded-lg transform -rotate-1"
           >
             <p className="font-medium">Message sent successfully!</p>
-            <p className="text-sm mt-1 text-emerald-600">We&apos;ll get back to you soon.</p>
+            <p className="text-sm mt-1 opacity-80">We&apos;ll get back to you soon.</p>
           </motion.div>
         )}
         
@@ -86,17 +89,17 @@ export default function ContactForm() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg"
+            className="mb-6 p-4 bg-red-500/10 text-red-500 rounded-lg transform rotate-1"
           >
             <p className="font-medium">Oops! Something went wrong.</p>
-            <p className="text-sm mt-1 text-red-600">{errorMessage}</p>
+            <p className="text-sm mt-1 opacity-80">{errorMessage}</p>
           </motion.div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <div className="space-y-2 transform -rotate-1">
+              <label htmlFor="name" className="block text-sm font-mono text-text-muted">
                 Name
               </label>
               <motion.input
@@ -108,14 +111,14 @@ export default function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 
-                          focus:border-gray-500 focus:ring-2 focus:ring-gray-200 focus:outline-none
-                          transition-colors duration-200"
+                className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+                          focus:ring-2 focus:ring-accent/20 focus:outline-none
+                          transition-all duration-200 shadow-lg"
                 placeholder="Your name"
               />
             </div>
-            <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <div className="space-y-2 transform rotate-1">
+              <label htmlFor="email" className="block text-sm font-mono text-text-muted">
                 Email
               </label>
               <motion.input
@@ -127,16 +130,16 @@ export default function ContactForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 
-                          focus:border-gray-500 focus:ring-2 focus:ring-gray-200 focus:outline-none
-                          transition-colors duration-200"
+                className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+                          focus:ring-2 focus:ring-accent/20 focus:outline-none
+                          transition-all duration-200 shadow-lg"
                 placeholder="your@email.com"
               />
             </div>
           </div>
           
-          <div className="space-y-2">
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+          <div className="space-y-2 transform -rotate-1">
+            <label htmlFor="subject" className="block text-sm font-mono text-text-muted">
               Subject
             </label>
             <motion.input
@@ -148,15 +151,15 @@ export default function ContactForm() {
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 
-                        focus:border-gray-500 focus:ring-2 focus:ring-gray-200 focus:outline-none
-                        transition-colors duration-200"
+              className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+                        focus:ring-2 focus:ring-accent/20 focus:outline-none
+                        transition-all duration-200 shadow-lg"
               placeholder="What's this about?"
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+          <div className="space-y-2 transform rotate-1">
+            <label htmlFor="message" className="block text-sm font-mono text-text-muted">
               Message
             </label>
             <motion.textarea
@@ -168,9 +171,9 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               rows={6}
-              className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 
-                        focus:border-gray-500 focus:ring-2 focus:ring-gray-200 focus:outline-none
-                        transition-colors duration-200 resize-none"
+              className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+                        focus:ring-2 focus:ring-accent/20 focus:outline-none
+                        transition-all duration-200 resize-none shadow-lg"
               placeholder="Tell me about your project..."
             />
           </div>
@@ -178,14 +181,14 @@ export default function ContactForm() {
           <motion.button
             type="submit"
             disabled={status === 'submitting'}
-            className={`w-full md:w-auto px-8 py-3 rounded-lg text-white font-medium
+            className={`w-full md:w-auto px-8 py-3 rounded-lg text-white font-mono text-sm
                       ${status === 'submitting' 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-gray-900 hover:bg-gray-800 active:bg-gray-950'}
+                        ? 'bg-text-muted cursor-not-allowed' 
+                        : 'bg-accent hover:bg-accent-light'}
                       transition-all duration-200 ease-in-out
-                      transform hover:scale-[1.02] active:scale-[0.98]`}
-            whileHover={{ scale: 1.03, translateY: -2 }}
-            whileTap={{ scale: 0.97 }}
+                      transform hover:-translate-y-1 shadow-lg -rotate-1`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ 
               duration: 0.2,
               ease: "easeInOut"

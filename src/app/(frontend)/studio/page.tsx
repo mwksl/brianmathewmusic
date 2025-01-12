@@ -1,7 +1,9 @@
+'use server';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import ContactForm from '@/components/ContactForm';
 import Navigation from '@/components/Navigation';
+import ServicesGrid from '@/components/ServicesGrid';
 
 interface Service {
   name: string;
@@ -46,76 +48,42 @@ export default async function StudioPage() {
   const recordingElements = studio?.recordingElements || [];
 
   return (
-    <>
+    <div>
       <Navigation />
-      <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-playfair mb-8">Studio</h1>
+      <main className="container mx-auto px-4 py-16 font-mono">
+        <h1 className="text-4xl md:text-5xl text-accent mb-12 uppercase tracking-wider">Studio</h1>
         
-        {/* About Section */}
-        <section className="mb-16">
-          <p className="text-lg font-inter text-gray-700 mb-8">
-            {studio?.about || 'Recording and production services by Brian Mathew.'}
+        <div className="prose prose-lg max-w-none">
+          <p className="text-lg mb-8">
+            {studio?.about || 'A quiet, encouraging space to create, GD studio is a one-of-a-kind hideaway tailored for independent-scale writing, recording, mixing and mastering.'}
           </p>
-        </section>
+        </div>
 
-        {/* Services Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-playfair mb-6">Services</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <div 
-                key={index}
-                className="group relative p-4 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300"
-              >
-                <h3 className="text-xl font-playfair mb-2">{service.name}</h3>
-                <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
-                  <p className="text-gray-600 font-inter">{service.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <h2 className="text-2xl md:text-3xl text-accent mt-16 mb-8 uppercase tracking-wide">Services</h2>
+        <ServicesGrid services={services} />
 
-        {/* Recording Elements Section */}
-        {recordingElements.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-3xl font-playfair mb-6">Elements I can record</h2>
-            <div className="flex flex-wrap gap-3">
-              {recordingElements.map((element, index) => (
-                <span
-                  key={index}
-                  className="px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-inter"
-                >
-                  {element.name}
-                </span>
-              ))}
-            </div>
-            <p className="mt-4 text-gray-600 font-inter">
-              {studio?.otherElementsText}
-            </p>
-          </section>
-        )}
+        <h2 className="text-2xl md:text-3xl text-accent mt-16 mb-8 uppercase tracking-wide">Elements I Can Record</h2>
+        <div className="flex flex-wrap gap-3 mb-4">
+          {recordingElements.map((element, index) => (
+            <span key={index} className="px-4 py-2 bg-white/30 rounded-full text-sm">
+              {element.name}
+            </span>
+          ))}
+        </div>
+        <p className="text-sm text-text-muted">
+          {studio?.otherElementsText || 'For drums or anything else, contact me to discuss details.'}
+        </p>
 
-        {/* Genres Section */}
-        {genres.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-3xl font-playfair mb-6">Genres</h2>
-            <div className="flex flex-wrap gap-3">
-              {genres.map((genre, index) => (
-                <span
-                  key={index}
-                  className="px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-inter"
-                >
-                  {genre.name}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Contact Form */}
-        <ContactForm />
-      </div>
-    </>
+        <h2 className="text-2xl md:text-3xl text-accent mt-16 mb-8 uppercase tracking-wide">Genres</h2>
+        <div className="flex flex-wrap gap-3">
+          {genres.map((genre, index) => (
+            <span key={index} className="px-4 py-2 bg-white/30 rounded-full text-sm">
+              {genre.name}
+            </span>
+          ))}
+        </div>
+      </main>
+      <ContactForm />
+    </div>
   );
 }

@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Space_Mono } from "next/font/google";
+import { customFont } from './fonts';
 import "./globals.css";
 
-const inter = Inter({
+const spaceMono = Space_Mono({
+  weight: ['400', '700'],
   subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-space-mono",
 });
 
 export const metadata: Metadata = {
@@ -23,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-gradient-to-b from-white to-gray-50 font-sans">
+    <html lang="en" className={`${spaceMono.variable} ${customFont.variable}`}>
+      <body className="min-h-screen font-mono antialiased">
         {children}
       </body>
     </html>

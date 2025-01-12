@@ -3,11 +3,77 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
+  --background: #F5E6D3;
+  --foreground: #2D1810;
+  --accent: #A45D5D;
+  --accent-light: #C17C74;
+  --text-muted: #7D4F50;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+  background-image: 
+    linear-gradient(rgba(164, 93, 93, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(164, 93, 93, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-attachment: fixed;
+  position: relative;
+  font-family: 'Space Mono', monospace;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, 
+    rgba(164, 93, 93, 0.1) 0%, 
+    rgba(164, 93, 93, 0.05) 45%, 
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-accent uppercase tracking-wide;
+  }
+  
+  .form-input,
+  .form-textarea,
+  .form-select {
+    @apply bg-white/30 border-0 backdrop-blur-sm rounded-lg shadow-sm;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative inline-block text-foreground hover:text-accent transition-colors;
+  }
+  
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+  }
+  
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .grid-texture {
+    @apply relative;
+  }
+
+  .grid-texture::before {
+    @apply content-[''] absolute inset-0 pointer-events-none;
+    background-image: 
+      linear-gradient(to right, var(--accent) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--accent) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.05;
+  }
+
+  .service-title {
+    @apply text-xl text-accent uppercase tracking-wider;
+  }
 }
