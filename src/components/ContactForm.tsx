@@ -64,7 +64,7 @@ export default function ContactForm() {
       >
         <h2 className="text-4xl font-playfair mb-3 text-gray-900">Get in Touch</h2>
         <p className="text-lg text-gray-600 mb-8 font-light">
-          Have a project in mind? Let's create something amazing together.
+          Have a project in mind? Let&apos;s create something amazing together.
         </p>
 
         {status === 'success' && (
@@ -76,7 +76,7 @@ export default function ContactForm() {
             className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg"
           >
             <p className="font-medium">Message sent successfully!</p>
-            <p className="text-sm mt-1 text-emerald-600">We'll get back to you soon.</p>
+            <p className="text-sm mt-1 text-emerald-600">We&apos;ll get back to you soon.</p>
           </motion.div>
         )}
         

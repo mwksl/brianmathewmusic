@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types';
+import { CollectionConfig } from 'payload'
 
 export const Forms: CollectionConfig = {
   slug: 'forms',
@@ -7,7 +7,7 @@ export const Forms: CollectionConfig = {
   },
   access: {
     create: () => true, // Allow public form submissions
-    read: () => false,  // Restrict reading to admins only
+    read: () => false, // Restrict reading to admins only
   },
   hooks: {
     afterChange: [
@@ -24,9 +24,9 @@ export const Forms: CollectionConfig = {
                 <p><strong>Subject:</strong> ${doc.subject}</p>
                 <p><strong>Message:</strong> ${doc.message}</p>
               `,
-            });
+            })
           } catch (error) {
-            console.error('Failed to send email notification:', error);
+            console.error('Failed to send email notification:', error)
           }
         }
       },
@@ -76,4 +76,4 @@ export const Forms: CollectionConfig = {
       },
     },
   ],
-};
+}
