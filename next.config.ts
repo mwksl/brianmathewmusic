@@ -3,11 +3,9 @@ import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
   api: {
-    bodyParser: {
-      sizeLimit: '30mb' 
-    },
-    responseLimit: '30mb'
-  }
+    bodyParser: false, // Disabling body parser for streams
+    responseLimit: false,
+  },
 };
 
 export default withPayload(nextConfig);

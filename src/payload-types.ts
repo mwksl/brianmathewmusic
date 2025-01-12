@@ -16,6 +16,8 @@ export interface Config {
     'media-with-prefix': MediaWithPrefix;
     pages: Page;
     discography: Discography;
+    navigation: Navigation;
+    studio: Studio;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -27,6 +29,8 @@ export interface Config {
     'media-with-prefix': MediaWithPrefixSelect<false> | MediaWithPrefixSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     discography: DiscographySelect<false> | DiscographySelect<true>;
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
+    studio: StudioSelect<false> | StudioSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -166,6 +170,45 @@ export interface Discography {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  title: string;
+  path: string;
+  description: string;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "studio".
+ */
+export interface Studio {
+  id: number;
+  title: string;
+  about: string;
+  services: {
+    name: string;
+    description: string;
+    id?: string | null;
+  }[];
+  genres: {
+    name: string;
+    id?: string | null;
+  }[];
+  recordingElements: {
+    name: string;
+    id?: string | null;
+  }[];
+  otherGenresText: string;
+  otherElementsText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -190,6 +233,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'discography';
         value: number | Discography;
+      } | null)
+    | ({
+        relationTo: 'navigation';
+        value: number | Navigation;
+      } | null)
+    | ({
+        relationTo: 'studio';
+        value: number | Studio;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -311,6 +362,49 @@ export interface DiscographySelect<T extends boolean = true> {
       };
   spotifyUrl?: T;
   coverArt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  title?: T;
+  path?: T;
+  description?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "studio_select".
+ */
+export interface StudioSelect<T extends boolean = true> {
+  title?: T;
+  about?: T;
+  services?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        id?: T;
+      };
+  genres?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  recordingElements?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  otherGenresText?: T;
+  otherElementsText?: T;
   updatedAt?: T;
   createdAt?: T;
 }
