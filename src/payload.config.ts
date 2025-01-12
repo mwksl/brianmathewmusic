@@ -3,6 +3,7 @@ import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -16,6 +17,7 @@ import { Discography } from './collections/Discography'
 import { Navigation } from './collections/Navigation'
 import { Studio } from './collections/Studio'
 import { Music } from './collections/Music'
+import { Forms } from './collections/Forms'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,9 +29,14 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, MediaWithPrefix, Pages, Discography, Navigation, Studio, Music],
+  collections: [Users, Media, MediaWithPrefix, Pages, Discography, Navigation, Studio, Music, Forms],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  email: resendAdapter({
+    apiKey: process.env.RESEND_API_KEY || '',
+    defaultFromName: 'Brian Mathew Music',
+    defaultFromAddress: 'onboarding@resend.dev', // We'll update this once you verify your domain
+  }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
