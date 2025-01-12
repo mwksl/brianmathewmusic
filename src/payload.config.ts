@@ -15,6 +15,7 @@ import { Pages } from './collections/Pages'
 import { Discography } from './collections/Discography'
 import { Navigation } from './collections/Navigation'
 import { Studio } from './collections/Studio'
+import { Music } from './collections/Music'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, MediaWithPrefix, Pages, Discography, Navigation, Studio],
+  collections: [Users, Media, MediaWithPrefix, Pages, Discography, Navigation, Studio, Music],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
