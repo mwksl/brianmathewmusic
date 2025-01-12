@@ -14,11 +14,18 @@ interface Genre {
   id?: string | null;
 }
 
+interface RecordingElement {
+  name: string;
+  id?: string | null;
+}
+
 interface Studio {
   title: string;
   about: string;
   services: Service[];
   genres: Genre[];
+  recordingElements: RecordingElement[];
+  otherElementsText: string;
 }
 
 async function getStudio() {
@@ -36,6 +43,7 @@ export default async function StudioPage() {
   const studio = await getStudio();
   const services = studio?.services || [];
   const genres = studio?.genres || [];
+  const recordingElements = studio?.recordingElements || [];
 
   return (
     <>
@@ -67,6 +75,26 @@ export default async function StudioPage() {
             ))}
           </div>
         </section>
+
+        {/* Recording Elements Section */}
+        {recordingElements.length > 0 && (
+          <section className="mb-16">
+            <h2 className="text-3xl font-playfair mb-6">Elements I can record</h2>
+            <div className="flex flex-wrap gap-3">
+              {recordingElements.map((element, index) => (
+                <span
+                  key={index}
+                  className="px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-inter"
+                >
+                  {element.name}
+                </span>
+              ))}
+            </div>
+            <p className="mt-4 text-gray-600 font-inter">
+              {studio?.otherElementsText}
+            </p>
+          </section>
+        )}
 
         {/* Genres Section */}
         {genres.length > 0 && (

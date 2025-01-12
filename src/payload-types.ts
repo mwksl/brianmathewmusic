@@ -19,6 +19,7 @@ export interface Config {
     navigation: Navigation;
     studio: Studio;
     music: Music;
+    forms: Form;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -33,6 +34,7 @@ export interface Config {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     studio: StudioSelect<false> | StudioSelect<true>;
     music: MusicSelect<false> | MusicSelect<true>;
+    forms: FormsSelect<false> | FormsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -231,6 +233,20 @@ export interface Music {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+  id: number;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  status?: ('new' | 'read' | 'replied') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -267,6 +283,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'music';
         value: number | Music;
+      } | null)
+    | ({
+        relationTo: 'forms';
+        value: number | Form;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -448,6 +468,19 @@ export interface MusicSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms_select".
+ */
+export interface FormsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  subject?: T;
+  message?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
