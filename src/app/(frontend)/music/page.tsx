@@ -3,19 +3,19 @@ import configPromise from '@payload-config';
 import ContactForm from '@/components/ContactForm';
 import Navigation from '@/components/Navigation';
 
-async function getDiscography() {
+async function getMusic() {
   const payload = await getPayload({
     config: configPromise,
   });
-  const discography = await payload.find({
-    collection: 'discography',
-    limit: 100,
+  const music = await payload.find({
+    collection: 'music',
+    limit: 1,
   });
-  return discography.docs;
+  return music.docs[0];
 }
 
 export default async function MusicPage() {
-  const discography = await getDiscography();
+  const music = await getMusic();
 
   return (
     <>
@@ -23,39 +23,31 @@ export default async function MusicPage() {
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl md:text-5xl font-playfair mb-8">Original Music</h1>
         
-        {/* Discography Section */}
+        {/* About Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-playfair mb-6">Discography</h2>
+          <p className="text-lg font-inter text-gray-700 mb-8">
+            {music?.about || 'Original compositions and musical collaborations by Brian Mathew.'}
+          </p>
+        </section>
+
+        {/* Listen Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-playfair mb-6">Listen</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {discography.map((album) => (
+            {music?.spotifyEmbeds?.map((embed, index) => (
               <div 
-                key={album.id} 
-                className="group relative p-4 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300"
+                key={index}
+                className="relative aspect-square w-full"
               >
-                <h3 className="text-xl font-playfair mb-2">{album.albumTitle}</h3>
-                <p className="text-gray-600 font-inter">{album.artist}</p>
-                {album.roles && album.roles.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {album.roles.map((role, index) => (
-                      <span 
-                        key={index}
-                        className="text-sm px-2 py-1 bg-gray-100 rounded-full text-gray-600"
-                      >
-                        {role.role}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {album.spotifyUrl && (
-                  <a 
-                    href={album.spotifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-block text-green-600 hover:text-green-700 transition-colors"
-                  >
-                    Listen on Spotify
-                  </a>
-                )}
+                <iframe
+                  src={embed.embedUrl}
+                  width="100%"
+                  height="100%"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  className="rounded-lg shadow-lg"
+                  title={embed.title}
+                />
               </div>
             ))}
           </div>

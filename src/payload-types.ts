@@ -18,6 +18,7 @@ export interface Config {
     discography: Discography;
     navigation: Navigation;
     studio: Studio;
+    music: Music;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -31,6 +32,7 @@ export interface Config {
     discography: DiscographySelect<false> | DiscographySelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     studio: StudioSelect<false> | StudioSelect<true>;
+    music: MusicSelect<false> | MusicSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -194,16 +196,35 @@ export interface Studio {
     description: string;
     id?: string | null;
   }[];
-  genres: {
-    name: string;
-    id?: string | null;
-  }[];
+  genres?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
   recordingElements: {
     name: string;
     id?: string | null;
   }[];
   otherGenresText: string;
   otherElementsText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "music".
+ */
+export interface Music {
+  id: number;
+  about: string;
+  spotifyEmbeds?:
+    | {
+        embedUrl: string;
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -241,6 +262,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'studio';
         value: number | Studio;
+      } | null)
+    | ({
+        relationTo: 'music';
+        value: number | Music;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -405,6 +430,22 @@ export interface StudioSelect<T extends boolean = true> {
       };
   otherGenresText?: T;
   otherElementsText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "music_select".
+ */
+export interface MusicSelect<T extends boolean = true> {
+  about?: T;
+  spotifyEmbeds?:
+    | T
+    | {
+        embedUrl?: T;
+        title?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -39,7 +39,6 @@ export const Studio: CollectionConfig = {
     {
       name: 'genres',
       type: 'array',
-      required: true,
       fields: [
         {
           name: 'name',
