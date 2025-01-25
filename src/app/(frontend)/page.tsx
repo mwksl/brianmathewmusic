@@ -13,7 +13,6 @@ async function getNavigation() {
       collection: 'navigation',
       depth: 2,
     });
-    console.log('[Server] Navigation response:', navigation);
     return navigation.docs;
   } catch (error) {
     console.error('[Server] Error fetching navigation:', error);
@@ -23,29 +22,25 @@ async function getNavigation() {
 
 export default async function Home() {
   const navItems = await getNavigation();
-  console.log('[Server] All nav items:', navItems);
-  
   const musicNav = navItems.find(item => item.path === '/music');
   const studioNav = navItems.find(item => item.path === '/studio');
-  
-  console.log('[Server] Music nav:', musicNav);
-  console.log('[Server] Studio nav:', studioNav);
 
   const getMusicImageUrl = () => {
     if (!musicNav?.image) return '';
-    return typeof musicNav.image === 'string' ? musicNav.image : musicNav.image.url;
+    if (typeof musicNav.image === 'string') return musicNav.image;
+    if ('url' in musicNav.image) return musicNav.image.url;
+    return '';
   };
 
   const getStudioImageUrl = () => {
     if (!studioNav?.image) return '';
-    return typeof studioNav.image === 'string' ? studioNav.image : studioNav.image.url;
+    if (typeof studioNav.image === 'string') return studioNav.image;
+    if ('url' in studioNav.image) return studioNav.image.url;
+    return '';
   };
 
   const musicImageUrl = getMusicImageUrl();
   const studioImageUrl = getStudioImageUrl();
-  
-  console.log('Music image URL:', musicImageUrl);
-  console.log('Studio image URL:', studioImageUrl);
 
   return (
     <div className="min-h-screen flex items-center justify-center grid-texture">
