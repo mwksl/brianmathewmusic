@@ -3,7 +3,8 @@ import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import ContactForm from '@/components/ContactForm';
 import Navigation from '@/components/Navigation';
-import ServicesGrid from '@/components/ServicesGrid';
+import Image from 'next/image';
+import ServicesList from './ServicesList';
 
 interface Service {
   name: string;
@@ -21,6 +22,18 @@ interface RecordingElement {
   id?: string | null;
 }
 
+interface GearItem {
+  name: string;
+  description?: string;
+  id?: string | null;
+}
+
+interface GearCategory {
+  category: string;
+  items: GearItem[];
+  id?: string | null;
+}
+
 interface Studio {
   title: string;
   about: string;
@@ -28,62 +41,211 @@ interface Studio {
   genres: Genre[];
   recordingElements: RecordingElement[];
   otherElementsText: string;
+  gear: GearCategory[];
+  studioImage?: { url: string };
+  servicesImage?: { url: string };
+  genresImage?: { url: string };
+  elementsImage?: { url: string };
+  gearImage?: { url: string };
 }
 
 async function getStudio() {
-  const payload = await getPayload({
-    config: configPromise,
-  });
-  const studio = await payload.find({
-    collection: 'studio',
-    limit: 1,
-  });
-  return studio.docs[0] as Studio;
+  try {
+    const payload = await getPayload({
+      config: configPromise,
+    });
+    
+    const studio = await payload.find({
+      collection: 'studio',
+      limit: 1,
+      depth: 2,
+    });
+    
+    if (!studio.docs || studio.docs.length === 0) {
+      return null;
+    }
+    
+    return studio.docs[0] as Studio;
+  } catch (error) {
+    console.error('Error fetching studio data:', error);
+    throw error; // Let Next.js handle the error
+  }
 }
 
 export default async function StudioPage() {
-  const studio = await getStudio();
-  const services = studio?.services || [];
-  const genres = studio?.genres || [];
-  const recordingElements = studio?.recordingElements || [];
+  let studio;
+  try {
+    studio = await getStudio();
+  } catch (error) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Navigation />
+        <div className="text-center py-8">
+          <h1 className="font-heading text-4xl mb-4">Error Loading Studio</h1>
+          <p>Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!studio) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Navigation />
+        <div className="text-center py-8">
+          <h1 className="font-heading text-4xl mb-4">Studio</h1>
+          <p>No studio information available.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const services = studio.services || [];
+  const genres = studio.genres || [];
+  const recordingElements = studio.recordingElements || [];
+  const gear = studio.gear || [];
 
   return (
-    <div>
+    <div className="min-h-screen">
       <Navigation />
-      <main className="container mx-auto px-4 py-16 font-mono">
-        <h1 className="text-4xl md:text-5xl text-accent mb-12 uppercase tracking-wider">Studio</h1>
-        
-        <div className="prose prose-lg max-w-none">
-          <p className="text-lg mb-8">
-            {studio?.about || 'A quiet, encouraging space to create, GD studio is a one-of-a-kind hideaway tailored for independent-scale writing, recording, mixing and mastering.'}
-          </p>
+      
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-8">
+          <div className="w-full md:w-1/2">
+            <h1 className="font-heading text-5xl mb-6">{studio.title}</h1>
+            <p className="text-lg text-text-muted">{studio.about}</p>
+          </div>
+          {studio.studioImage?.url && (
+            <div className="w-full md:w-1/2">
+              <div className="relative h-[400px]">
+                <Image 
+                  src={studio.studioImage.url} 
+                  alt="Studio"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          )}
         </div>
+      </section>
 
-        <h2 className="text-2xl md:text-3xl text-accent mt-16 mb-8 uppercase tracking-wide">Services</h2>
-        <ServicesGrid services={services} />
-
-        <h2 className="text-2xl md:text-3xl text-accent mt-16 mb-8 uppercase tracking-wide">Elements I Can Record</h2>
-        <div className="flex flex-wrap gap-3 mb-4">
-          {recordingElements.map((element, index) => (
-            <span key={index} className="px-4 py-2 bg-white/30 rounded-full text-sm">
-              {element.name}
-            </span>
-          ))}
+      {/* Services Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="flex flex-col md:flex-row-reverse items-start gap-8">
+          <div className="w-full md:w-1/2">
+            <h2 className="font-heading text-4xl mb-6">Services</h2>
+            <ServicesList services={services} />
+          </div>
+          {studio.servicesImage?.url && (
+            <div className="w-full md:w-1/2">
+              <div className="relative h-[400px]">
+                <Image 
+                  src={studio.servicesImage.url} 
+                  alt="Services"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          )}
         </div>
-        <p className="text-sm text-text-muted">
-          {studio?.otherElementsText || 'For drums or anything else, contact me to discuss details.'}
-        </p>
+      </section>
 
-        <h2 className="text-2xl md:text-3xl text-accent mt-16 mb-8 uppercase tracking-wide">Genres</h2>
-        <div className="flex flex-wrap gap-3">
-          {genres.map((genre, index) => (
-            <span key={index} className="px-4 py-2 bg-white/30 rounded-full text-sm">
-              {genre.name}
-            </span>
-          ))}
+      {/* Genres Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="flex flex-col-reverse md:flex-row items-start gap-8">
+          <div className="w-full md:w-1/2">
+            <h2 className="font-heading text-4xl mb-6">Genres</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {genres.map((genre) => (
+                <div key={genre.id} className="p-4 bg-white/5 rounded-lg">
+                  <p className="font-mono">{genre.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {studio.genresImage?.url && (
+            <div className="w-full md:w-1/2">
+              <div className="relative h-[400px]">
+                <Image 
+                  src={studio.genresImage.url} 
+                  alt="Genres"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          )}
         </div>
-      </main>
-      <ContactForm />
+      </section>
+
+      {/* Recording Elements Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="flex flex-col md:flex-row-reverse items-start gap-8">
+          <div className="w-full md:w-1/2">
+            <h2 className="font-heading text-4xl mb-6">Recording Elements</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {recordingElements.map((element) => (
+                <div key={element.id} className="p-4 bg-white/5 rounded-lg">
+                  <p className="font-mono">{element.name}</p>
+                </div>
+              ))}
+            </div>
+            {studio.otherElementsText && (
+              <p className="mt-4 text-text-muted italic">{studio.otherElementsText}</p>
+            )}
+          </div>
+          {studio.elementsImage?.url && (
+            <div className="w-full md:w-1/2">
+              <div className="relative h-[400px]">
+                <Image 
+                  src={studio.elementsImage.url} 
+                  alt="Recording Elements"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Gear Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="flex flex-col-reverse md:flex-row items-start gap-8">
+          <div className="w-full md:w-1/2">
+            <h2 className="font-heading text-4xl mb-6">Gear</h2>
+            <div className="space-y-8">
+              {gear.map((category) => (
+                <div key={category.id}>
+                  <h3 className="font-mono text-xl mb-4">{category.category}</h3>
+                  <div className="grid gap-2">
+                    {category.items?.map((item, index) => (
+                      <div key={index} className="p-3 bg-white/5 rounded-lg">
+                        <p className="font-mono text-sm">{item.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {studio.gearImage?.url && (
+            <div className="w-full md:w-1/2">
+              <div className="relative h-[400px]">
+                <Image 
+                  src={studio.gearImage.url} 
+                  alt="Gear"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

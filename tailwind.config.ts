@@ -9,7 +9,8 @@ export default {
     extend: {
       fontFamily: {
         mono: ["var(--font-space-mono)"],
-        heading: ["var(--font-custom)"],
+        heading: ["var(--font-custom)", "serif"],
+        sans: ["var(--font-custom)", "serif"],
       },
       colors: {
         background: "var(--background)",

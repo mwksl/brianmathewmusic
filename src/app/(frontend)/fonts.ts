@@ -1,12 +1,9 @@
-import localFont from 'next/font/local'
+import { Cormorant } from 'next/font/google'
 
-export const customFont = localFont({
-  src: [
-    {
-      path: './fonts/FatMolly-Regular.otf',
-      weight: '400',
-      style: 'normal',
-    },
-  ],
+export const customFont = Cormorant({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal'],
   variable: '--font-custom',
+  display: 'swap',
 })
