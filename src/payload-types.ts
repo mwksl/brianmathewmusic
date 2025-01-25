@@ -193,21 +193,39 @@ export interface Studio {
   id: number;
   title: string;
   about: string;
+  studioImage: number | Media;
   services: {
     name: string;
     description: string;
     id?: string | null;
   }[];
+  servicesImage?: (number | null) | Media;
   genres?:
     | {
         name: string;
         id?: string | null;
       }[]
     | null;
+  genresImage?: (number | null) | Media;
   recordingElements: {
     name: string;
     id?: string | null;
   }[];
+  elementsImage?: (number | null) | Media;
+  gear?:
+    | {
+        category: string;
+        items?:
+          | {
+              name: string;
+              description?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  gearImage?: (number | null) | Media;
   otherGenresText: string;
   otherElementsText: string;
   updatedAt: string;
@@ -430,6 +448,7 @@ export interface NavigationSelect<T extends boolean = true> {
 export interface StudioSelect<T extends boolean = true> {
   title?: T;
   about?: T;
+  studioImage?: T;
   services?:
     | T
     | {
@@ -437,18 +456,35 @@ export interface StudioSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  servicesImage?: T;
   genres?:
     | T
     | {
         name?: T;
         id?: T;
       };
+  genresImage?: T;
   recordingElements?:
     | T
     | {
         name?: T;
         id?: T;
       };
+  elementsImage?: T;
+  gear?:
+    | T
+    | {
+        category?: T;
+        items?:
+          | T
+          | {
+              name?: T;
+              description?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  gearImage?: T;
   otherGenresText?: T;
   otherElementsText?: T;
   updatedAt?: T;

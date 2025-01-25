@@ -21,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceMono.variable} ${customFont.variable}`}>
-      <body className="min-h-screen font-mono antialiased">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -5,77 +5,91 @@ import configPromise from '@payload-config';
 import { Media } from '@/payload-types';
 
 async function getNavigation() {
-  const payload = await getPayload({
-    config: configPromise,
-  });
-  const navigation = await payload.find({
-    collection: 'navigation',
-    depth: 1,
-  });
-  return navigation.docs;
+  try {
+    const payload = await getPayload({
+      config: configPromise,
+    });
+    const navigation = await payload.find({
+      collection: 'navigation',
+      depth: 2,
+    });
+    console.log('[Server] Navigation response:', navigation);
+    return navigation.docs;
+  } catch (error) {
+    console.error('[Server] Error fetching navigation:', error);
+    return [];
+  }
 }
 
 export default async function Home() {
   const navItems = await getNavigation();
+  console.log('[Server] All nav items:', navItems);
+  
   const musicNav = navItems.find(item => item.path === '/music');
   const studioNav = navItems.find(item => item.path === '/studio');
+  
+  console.log('[Server] Music nav:', musicNav);
+  console.log('[Server] Studio nav:', studioNav);
 
   const getMusicImageUrl = () => {
-    if (!musicNav?.image || typeof musicNav.image === 'number') return '';
-    return (musicNav.image as Media).url || '';
+    if (!musicNav?.image) return '';
+    return typeof musicNav.image === 'string' ? musicNav.image : musicNav.image.url;
   };
 
   const getStudioImageUrl = () => {
-    if (!studioNav?.image || typeof studioNav.image === 'number') return '';
-    return (studioNav.image as Media).url || '';
+    if (!studioNav?.image) return '';
+    return typeof studioNav.image === 'string' ? studioNav.image : studioNav.image.url;
   };
 
   const musicImageUrl = getMusicImageUrl();
   const studioImageUrl = getStudioImageUrl();
+  
+  console.log('Music image URL:', musicImageUrl);
+  console.log('Studio image URL:', studioImageUrl);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center grid-texture">
-      <div className="container mx-auto px-4 py-16">
-        <h1 className="font-heading text-6xl md:text-8xl text-accent mb-12">Brian Mathew</h1>
+    <div className="min-h-screen flex items-center justify-center grid-texture">
+      <div className="container mx-auto px-4">
+        <h1 className="font-heading text-5xl md:text-7xl text-accent mb-8 text-center">Brian Mathew</h1>
         
-        <div className="grid md:grid-cols-2 gap-16 max-w-7xl mx-auto relative">
-          <div className="absolute inset-0 bg-accent/5 -rotate-1 rounded-3xl transform -translate-y-4 translate-x-4" />
-          
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           <Link href="/music" 
-                className="group relative md:translate-y-12">
-            <div className="aspect-[3/4] relative overflow-hidden rounded-2xl shadow-lg">
-              {musicImageUrl && (
-                <Image
-                  src={musicImageUrl}
-                  alt={musicNav?.title || 'Original Music'}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 saturate-50"
-                />
-              )}
-              <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
-            </div>
-            <div className="mt-6 transform -rotate-1">
-              <h2 className="text-4xl mb-3 font-heading">{musicNav?.title || 'Original Music'}</h2>
-              <p className="font-mono text-sm text-text-muted">{musicNav?.description || 'Explore compositions'}</p>
+                className="group">
+            <div className="space-y-3">
+              <div className="aspect-[16/9] relative overflow-hidden rounded-lg shadow-lg">
+                {musicImageUrl && (
+                  <Image
+                    src={musicImageUrl}
+                    alt={musicNav?.title || 'Original Music'}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                )}
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h2 className="font-heading text-3xl text-white drop-shadow-lg">Original Music</h2>
+                </div>
+              </div>
+              <p className="font-mono text-sm text-text-muted">{musicNav?.description}</p>
             </div>
           </Link>
 
           <Link href="/studio"
-                className="group relative md:-translate-y-12">
-            <div className="aspect-[3/4] relative overflow-hidden rounded-2xl shadow-lg">
-              {studioImageUrl && (
-                <Image
-                  src={studioImageUrl}
-                  alt={studioNav?.title || 'Studio Work'}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 saturate-50"
-                />
-              )}
-              <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
-            </div>
-            <div className="mt-6 transform rotate-1">
-              <h2 className="text-4xl mb-3 font-heading">{studioNav?.title || 'Studio Work'}</h2>
-              <p className="font-mono text-sm text-text-muted">{studioNav?.description || 'Recording & Production'}</p>
+                className="group">
+            <div className="space-y-3">
+              <div className="aspect-[16/9] relative overflow-hidden rounded-lg shadow-lg">
+                {studioImageUrl && (
+                  <Image
+                    src={studioImageUrl}
+                    alt={studioNav?.title || 'Studio'}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                )}
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h2 className="font-heading text-3xl text-white drop-shadow-lg">Studio</h2>
+                </div>
+              </div>
+              <p className="font-mono text-sm text-text-muted">{studioNav?.description}</p>
             </div>
           </Link>
         </div>

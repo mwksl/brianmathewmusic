@@ -20,6 +20,13 @@ export const Studio: CollectionConfig = {
       required: true,
     },
     {
+      name: 'studioImage',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      label: 'Studio Full Shot',
+    },
+    {
       name: 'services',
       type: 'array',
       required: true,
@@ -37,6 +44,12 @@ export const Studio: CollectionConfig = {
       ],
     },
     {
+      name: 'servicesImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Services Section Image',
+    },
+    {
       name: 'genres',
       type: 'array',
       fields: [
@@ -46,6 +59,12 @@ export const Studio: CollectionConfig = {
           required: true,
         },
       ],
+    },
+    {
+      name: 'genresImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Genres Section Image',
     },
     {
       name: 'recordingElements',
@@ -58,6 +77,44 @@ export const Studio: CollectionConfig = {
           required: true,
         },
       ],
+    },
+    {
+      name: 'elementsImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Recording Elements Section Image',
+    },
+    {
+      name: 'gear',
+      type: 'array',
+      fields: [
+        {
+          name: 'category',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'items',
+          type: 'array',
+          fields: [
+            {
+              name: 'name',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'gearImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Gear Section Image',
     },
     {
       name: 'otherGenresText',
