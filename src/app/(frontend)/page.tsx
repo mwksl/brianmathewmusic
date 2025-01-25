@@ -4,6 +4,10 @@ import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import { Media } from '@/payload-types';
 
+const isMedia = (image: unknown): image is Media => {
+  return typeof image === 'object' && image !== null && 'url' in image;
+};
+
 async function getNavigation() {
   try {
     const payload = await getPayload({
@@ -28,14 +32,14 @@ export default async function Home() {
   const getMusicImageUrl = () => {
     if (!musicNav?.image) return '';
     if (typeof musicNav.image === 'string') return musicNav.image;
-    if ('url' in musicNav.image) return musicNav.image.url;
+    if (isMedia(musicNav.image)) return musicNav.image.url;
     return '';
   };
 
   const getStudioImageUrl = () => {
     if (!studioNav?.image) return '';
     if (typeof studioNav.image === 'string') return studioNav.image;
-    if ('url' in studioNav.image) return studioNav.image.url;
+    if (isMedia(studioNav.image)) return studioNav.image.url;
     return '';
   };
 
