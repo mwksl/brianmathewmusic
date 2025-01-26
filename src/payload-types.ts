@@ -237,6 +237,10 @@ export interface Studio {
  */
 export interface Music {
   id: number;
+  /**
+   * Title for the music page
+   */
+  title?: string | null;
   about: string;
   spotify_embeds?:
     | {
@@ -246,6 +250,14 @@ export interface Music {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Paste the Spotify embed code here
+   */
+  spotifyEmbed?: string | null;
+  spotifyUrl?: string | null;
+  instagramUrl?: string | null;
+  bandcampUrl?: string | null;
+  appleMusicUrl?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -495,6 +507,7 @@ export interface StudioSelect<T extends boolean = true> {
  * via the `definition` "music_select".
  */
 export interface MusicSelect<T extends boolean = true> {
+  title?: T;
   about?: T;
   spotify_embeds?:
     | T
@@ -504,6 +517,11 @@ export interface MusicSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  spotifyEmbed?: T;
+  spotifyUrl?: T;
+  instagramUrl?: T;
+  bandcampUrl?: T;
+  appleMusicUrl?: T;
   updatedAt?: T;
   createdAt?: T;
 }
