@@ -65,10 +65,7 @@ export default function ContactForm() {
         }}
         className="relative"
       >
-        <h2 className="text-4xl mb-3 font-heading transform -rotate-1">Get in Touch</h2>
-        <p className="font-mono text-sm text-text-muted mb-8 transform rotate-1">
-          Have a project in mind? Let&apos;s create something amazing together.
-        </p>
+        <h2 className="text-4xl mb-8 font-heading">Get in Touch</h2>
 
         {status === 'success' && (
           <motion.div
@@ -76,7 +73,7 @@ export default function ContactForm() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="mb-6 p-4 bg-accent/10 text-accent rounded-lg transform -rotate-1"
+            className="mb-6 p-4 bg-accent/10 text-accent rounded-lg"
           >
             <p className="font-medium">Message sent successfully!</p>
             <p className="text-sm mt-1 opacity-80">We&apos;ll get back to you soon.</p>
@@ -89,7 +86,7 @@ export default function ContactForm() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="mb-6 p-4 bg-red-500/10 text-red-500 rounded-lg transform rotate-1"
+            className="mb-6 p-4 bg-red-500/10 text-red-500 rounded-lg"
           >
             <p className="font-medium">Oops! Something went wrong.</p>
             <p className="text-sm mt-1 opacity-80">{errorMessage}</p>
@@ -98,7 +95,7 @@ export default function ContactForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2 transform -rotate-1">
+            <div className="space-y-2">
               <label htmlFor="name" className="block text-sm font-mono text-text-muted">
                 Name
               </label>
@@ -114,10 +111,10 @@ export default function ContactForm() {
                 className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
                           focus:ring-2 focus:ring-accent/20 focus:outline-none
                           transition-all duration-200 shadow-lg"
-                placeholder="Your name"
+                placeholder=""
               />
             </div>
-            <div className="space-y-2 transform rotate-1">
+            <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-mono text-text-muted">
                 Email
               </label>
@@ -133,12 +130,12 @@ export default function ContactForm() {
                 className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
                           focus:ring-2 focus:ring-accent/20 focus:outline-none
                           transition-all duration-200 shadow-lg"
-                placeholder="your@email.com"
+                placeholder=""
               />
             </div>
           </div>
           
-          <div className="space-y-2 transform -rotate-1">
+          <div className="space-y-2">
             <label htmlFor="subject" className="block text-sm font-mono text-text-muted">
               Subject
             </label>
@@ -154,11 +151,11 @@ export default function ContactForm() {
               className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
                         focus:ring-2 focus:ring-accent/20 focus:outline-none
                         transition-all duration-200 shadow-lg"
-              placeholder="What's this about?"
+              placeholder=""
             />
           </div>
 
-          <div className="space-y-2 transform rotate-1">
+          <div className="space-y-2">
             <label htmlFor="message" className="block text-sm font-mono text-text-muted">
               Message
             </label>
@@ -174,7 +171,7 @@ export default function ContactForm() {
               className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
                         focus:ring-2 focus:ring-accent/20 focus:outline-none
                         transition-all duration-200 resize-none shadow-lg"
-              placeholder="Tell me about your project..."
+              placeholder=""
             />
           </div>
 
@@ -186,7 +183,7 @@ export default function ContactForm() {
                         ? 'bg-text-muted cursor-not-allowed' 
                         : 'bg-accent hover:bg-accent-light'}
                       transition-all duration-200 ease-in-out
-                      transform hover:-translate-y-1 shadow-lg -rotate-1`}
+                      transform hover:-translate-y-1 shadow-lg`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ 

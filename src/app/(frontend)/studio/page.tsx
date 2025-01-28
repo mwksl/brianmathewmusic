@@ -246,6 +246,9 @@ export default async function StudioPage() {
           )}
         </div>
       </section>
+
+      {/* Contact Form */}
+      <ContactForm />
     </div>
   );
 }

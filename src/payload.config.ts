@@ -35,7 +35,7 @@ export default buildConfig({
   email: resendAdapter({
     apiKey: process.env.RESEND_API_KEY || '',
     defaultFromName: 'Brian Mathew Music',
-    defaultFromAddress: 'onboarding@resend.dev', // We'll update this once you verify your domain
+    defaultFromAddress: 'noreply@contact.brianmathewmusic.com',
   }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
