@@ -29,6 +29,12 @@ export const Music: CollectionConfig = {
       required: true,
     },
     {
+      name: 'featuredImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Featured Image',
+    },
+    {
       name: 'spotify_embeds',
       type: 'array',
       fields: [
