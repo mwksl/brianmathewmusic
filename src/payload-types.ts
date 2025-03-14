@@ -238,6 +238,7 @@ export interface Studio {
 export interface Music {
   id: number;
   about: string;
+  featuredImage?: (number | null) | Media;
   spotify_embeds?:
     | {
         embedUrl: string;
@@ -496,6 +497,7 @@ export interface StudioSelect<T extends boolean = true> {
  */
 export interface MusicSelect<T extends boolean = true> {
   about?: T;
+  featuredImage?: T;
   spotify_embeds?:
     | T
     | {
