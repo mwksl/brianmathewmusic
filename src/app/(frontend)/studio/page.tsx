@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation';
 import Image from 'next/image';
 import ServicesList from './ServicesList';
 import AudioPlayer from '@/components/AudioPlayer';
+import CreditsTooltip from '@/components/CreditsTooltip';
 
 interface Service {
   name: string;
@@ -167,7 +168,7 @@ export default async function StudioPage() {
                 }
                 
                 return (
-                  <div key={sample.id || index} className="border border-[#e0d5c8] p-4 rounded-sm group relative w-64">
+                  <div key={sample.id || index} className="border border-[#e0d5c8] p-4 rounded-sm w-64">
                     <h3 className="font-mono text-base mb-4 text-[#b25c65] tracking-wide uppercase min-h-[50px] line-clamp-2">{sample.title}</h3>
                     
                     {/* Sample Title */}
@@ -177,26 +178,17 @@ export default async function StudioPage() {
                     
                     {/* Audio Element - optimized with lazy loading */}
                     <audio
-                      className="w-full h-[30px] mt-2"
+                      className="w-full h-[30px] mt-2 mb-4"
                       src={audioUrl}
                       id={`audio-${index}`}
                       controls
                       preload="none"
                     />
                     
-                    {/* Credits label - always visible */}
+                    {/* Credits with hover tooltip (client component) */}
                     {sample.description && (
-                      <div className="relative">
-                        <p className="text-xs text-[#b25c65]/70 mt-3 cursor-help">Credits</p>
-                        
-                        {/* Credits content - visible on hover */}
-                        <div className="absolute bottom-full left-0 mb-2 w-full max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out bg-white border border-[#e0d5c8] rounded-sm p-4 shadow-md z-10">
-                          <div className="prose prose-sm text-xs text-[#b25c65] whitespace-pre-wrap">
-                            {sample.description}
-                          </div>
-                          {/* Triangle pointer */}
-                          <div className="absolute bottom-[-6px] left-4 w-3 h-3 bg-white border-b border-r border-[#e0d5c8] transform rotate-45"></div>
-                        </div>
+                      <div className="block text-center border-t border-[#e0d5c8] pt-2 mt-2">
+                        <CreditsTooltip description={sample.description} />
                       </div>
                     )}
                   </div>
