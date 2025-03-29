@@ -237,6 +237,16 @@ export interface Studio {
       }[]
     | null;
   gearImage?: (number | null) | Media;
+  /**
+   * Additional gear images to display in the gear section
+   */
+  additionalGearImages?:
+    | {
+        image: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   otherGenresText: string;
   otherElementsText: string;
   updatedAt: string;
@@ -505,6 +515,13 @@ export interface StudioSelect<T extends boolean = true> {
         id?: T;
       };
   gearImage?: T;
+  additionalGearImages?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
   otherGenresText?: T;
   otherElementsText?: T;
   updatedAt?: T;
