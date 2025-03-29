@@ -212,6 +212,17 @@ export interface Studio {
     id?: string | null;
   }[];
   elementsImage?: (number | null) | Media;
+  /**
+   * Audio samples to display on the studio page
+   */
+  audioSamples?:
+    | {
+        title: string;
+        audioFile: number | MediaWithPrefix;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   gear?:
     | {
         category: string;
@@ -226,6 +237,16 @@ export interface Studio {
       }[]
     | null;
   gearImage?: (number | null) | Media;
+  /**
+   * Additional gear images to display in the gear section
+   */
+  additionalGearImages?:
+    | {
+        image: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   otherGenresText: string;
   otherElementsText: string;
   updatedAt: string;
@@ -472,6 +493,14 @@ export interface StudioSelect<T extends boolean = true> {
         id?: T;
       };
   elementsImage?: T;
+  audioSamples?:
+    | T
+    | {
+        title?: T;
+        audioFile?: T;
+        description?: T;
+        id?: T;
+      };
   gear?:
     | T
     | {
@@ -486,6 +515,13 @@ export interface StudioSelect<T extends boolean = true> {
         id?: T;
       };
   gearImage?: T;
+  additionalGearImages?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
   otherGenresText?: T;
   otherElementsText?: T;
   updatedAt?: T;

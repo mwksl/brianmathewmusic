@@ -108,9 +108,9 @@ export default function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+                className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
                           focus:ring-2 focus:ring-accent/20 focus:outline-none
-                          transition-all duration-200 shadow-lg"
+                          transition-all duration-200"
               />
             </div>
             <div className="space-y-2">
@@ -126,9 +126,9 @@ export default function ContactForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+                className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
                           focus:ring-2 focus:ring-accent/20 focus:outline-none
-                          transition-all duration-200 shadow-lg"
+                          transition-all duration-200"
               />
             </div>
           </div>
@@ -146,9 +146,9 @@ export default function ContactForm() {
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+              className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
                         focus:ring-2 focus:ring-accent/20 focus:outline-none
-                        transition-all duration-200 shadow-lg"
+                        transition-all duration-200"
             />
           </div>
 
@@ -165,9 +165,9 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               rows={6}
-              className="w-full px-4 py-3 rounded-lg bg-white/30 backdrop-blur-sm border-0
+              className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
                         focus:ring-2 focus:ring-accent/20 focus:outline-none
-                        transition-all duration-200 resize-none shadow-lg"
+                        transition-all duration-200 resize-none"
             />
           </div>
 

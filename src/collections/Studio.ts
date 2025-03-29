@@ -85,6 +85,34 @@ export const Studio: CollectionConfig = {
       label: 'Recording Elements Section Image',
     },
     {
+      name: 'audioSamples',
+      type: 'array',
+      label: 'Audio Samples',
+      admin: {
+        description: 'Audio samples to display on the studio page',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          label: 'Genre/Category',
+        },
+        {
+          name: 'audioFile',
+          type: 'upload',
+          relationTo: 'media-with-prefix',
+          required: true,
+          label: 'Audio Sample File',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Credits or Description',
+        },
+      ],
+    },
+    {
       name: 'gear',
       type: 'array',
       fields: [
@@ -114,7 +142,30 @@ export const Studio: CollectionConfig = {
       name: 'gearImage',
       type: 'upload',
       relationTo: 'media',
-      label: 'Gear Section Image',
+      label: 'Main Gear Section Image',
+    },
+    {
+      name: 'additionalGearImages',
+      type: 'array',
+      label: 'Additional Gear Images',
+      admin: {
+        description: 'Additional gear images to display in the gear section',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          label: 'Gear Image',
+        },
+        {
+          name: 'alt',
+          type: 'text',
+          label: 'Alt Text',
+          defaultValue: 'Studio Gear',
+        }
+      ],
     },
     {
       name: 'otherGenresText',
