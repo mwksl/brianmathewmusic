@@ -85,6 +85,34 @@ export const Studio: CollectionConfig = {
       label: 'Recording Elements Section Image',
     },
     {
+      name: 'audioSamples',
+      type: 'array',
+      label: 'Audio Samples',
+      admin: {
+        description: 'Audio samples to display on the studio page',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          label: 'Genre/Category',
+        },
+        {
+          name: 'audioFile',
+          type: 'upload',
+          relationTo: 'media-with-prefix',
+          required: true,
+          label: 'Audio Sample File',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Credits or Description',
+        },
+      ],
+    },
+    {
       name: 'gear',
       type: 'array',
       fields: [
