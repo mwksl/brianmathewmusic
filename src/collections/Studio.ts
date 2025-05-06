@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload';
+import { revalidate } from '@/utilities/revalidate';
 
 export const Studio: CollectionConfig = {
   slug: 'studio',
@@ -7,6 +8,30 @@ export const Studio: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        if (req.payload) {
+          await revalidate({
+            collection: 'studio',
+            doc,
+            payload: req.payload,
+          });
+        }
+      },
+    ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        if (req.payload) {
+          await revalidate({
+            collection: 'studio',
+            doc,
+            payload: req.payload,
+          });
+        }
+      },
+    ],
   },
   fields: [
     {
