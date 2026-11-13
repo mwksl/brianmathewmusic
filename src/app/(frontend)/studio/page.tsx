@@ -140,7 +140,7 @@ export default async function StudioPage() {
             {studio.studioImage ? (
               <div className="relative h-[420px] md:h-[700px]">
                 <Image
-                  priority
+                  preload
                   src={
                     typeof studio.studioImage === 'number'
                       ? `/api/media-with-prefix/${studio.studioImage}`
@@ -233,6 +233,8 @@ export default async function StudioPage() {
                 alt="Services"
                 fill
                 className="object-cover rounded-lg"
+
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
@@ -271,6 +273,8 @@ export default async function StudioPage() {
                 alt="Genres I Can Record"
                 fill
                 className="object-cover rounded-lg"
+
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
@@ -292,6 +296,8 @@ export default async function StudioPage() {
                 alt="Elements I Can Record"
                 fill
                 className="object-cover rounded-lg"
+
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
@@ -343,6 +349,8 @@ export default async function StudioPage() {
                   alt="Gear"
                   fill
                   className="object-cover rounded-lg"
+
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             ) : null}
@@ -363,6 +371,8 @@ export default async function StudioPage() {
                       alt={gearImage.alt || 'Studio Gear'}
                       fill
                       className="object-cover rounded-lg"
+
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 )

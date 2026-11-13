@@ -61,6 +61,8 @@ export default async function Home() {
                     src={musicImageUrl}
                     alt={musicNav?.title || 'Original Music'}
                     fill
+                    preload
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 )}
@@ -81,6 +83,8 @@ export default async function Home() {
                     src={studioImageUrl}
                     alt={studioNav?.title || 'Studio'}
                     fill
+                    preload
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 )}

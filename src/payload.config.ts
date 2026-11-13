@@ -50,10 +50,13 @@ export default buildConfig({
   plugins: [
     vercelBlobStorage({
       enabled: true,
+      // Media is public, so serve files straight from the Blob CDN instead of proxying
+      // every image and audio request through a Payload function (~3s vs ~0.5s).
       collections: {
-        media: true,
+        media: { disablePayloadAccessControl: true },
         'media-with-prefix': {
           prefix: 'bmm',
+          disablePayloadAccessControl: true,
         },
       },
       token: process.env.BLOB_READ_WRITE_TOKEN,
