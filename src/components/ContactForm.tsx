@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
 import { CONTACT_LIMITS, HONEYPOT_FIELD } from '@/utilities/contactForm';
 
 export default function ContactForm() {

@@ -10,40 +10,38 @@
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "lint": "eslint .",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
-    "@payloadcms/db-vercel-postgres": "latest",
-    "@payloadcms/email-resend": "latest",
-    "@payloadcms/next": "latest",
-    "@payloadcms/payload-cloud": "latest",
-    "@payloadcms/richtext-lexical": "latest",
-    "@payloadcms/storage-vercel-blob": "latest",
+    "@payloadcms/db-vercel-postgres": "3.93.0",
+    "@payloadcms/email-resend": "3.93.0",
+    "@payloadcms/next": "3.93.0",
+    "@payloadcms/richtext-lexical": "3.93.0",
+    "@payloadcms/storage-vercel-blob": "3.93.0",
     "botid": "^1.5.13",
     "cross-env": "^7.0.3",
-    "framer-motion": "^11.17.0",
     "graphql": "^16.8.1",
-    "next": "^15.1.12",
-    "payload": "latest",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "motion": "14.14.0",
+    "next": "16.4.6",
+    "payload": "3.93.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "resend": "^4.0.1",
-    "sharp": "0.32.6"
+    "sharp": "0.35.5"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
-    "@types/node": "^22.5.4",
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.1",
-    "eslint": "^9.16.0",
-    "eslint-config-next": "15.1.0",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.6",
     "prettier": "^3.4.2",
     "tailwindcss": "^3.4.17",
-    "typescript": "5.7.2"
+    "typescript": "5.9.3"
   },
   "engines": {
-    "node": "^18.20.2 || >=20.9.0"
+    "node": "^22.23.4 || >=24.22.1"
   }
 }
