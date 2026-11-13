@@ -1,35 +1,12 @@
 import { CollectionConfig } from 'payload';
-import { revalidate } from '@/utilities/revalidate'
+import { revalidateHooks } from '@/utilities/revalidate'
 
 export const Discography: CollectionConfig = {
   slug: 'discography',
   admin: {
     useAsTitle: 'albumTitle',
   },
-  hooks: {
-    afterChange: [
-      async ({ doc, req }) => {
-        if (req.payload) {
-          await revalidate({
-            collection: 'discography',
-            doc,
-            payload: req.payload,
-          });
-        }
-      },
-    ],
-    afterDelete: [
-      async ({ doc, req }) => {
-        if (req.payload) {
-          await revalidate({
-            collection: 'discography',
-            doc,
-            payload: req.payload,
-          });
-        }
-      },
-    ],
-  },
+  hooks: revalidateHooks('discography'),
   fields: [
     {
       name: 'albumTitle',

@@ -12,7 +12,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between py-4">
           <Link 
             href="/" 
-            className="text-xl font-playfair hover:text-gray-600 transition-colors"
+            className="text-xl hover:text-gray-600 transition-colors"
           >
             Brian Mathew
           </Link>
