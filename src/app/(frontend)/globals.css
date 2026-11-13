@@ -82,6 +82,11 @@
       linear-gradient(90deg, rgba(164, 93, 93, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
     background-attachment: fixed;
+
+    /* iOS Safari ignores/janks fixed backgrounds */
+    @media (max-width: 767px) {
+      background-attachment: scroll;
+    }
     position: relative;
     font-family: 'Space Mono', monospace;
   }
@@ -104,6 +109,8 @@
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     @apply text-accent uppercase tracking-wide;
+    /* long CMS strings like "DAW/Software/Controllers" have no break points */
+    overflow-wrap: anywhere;
   }
   
   .form-input,

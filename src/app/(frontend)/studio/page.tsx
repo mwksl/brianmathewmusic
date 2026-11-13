@@ -138,7 +138,7 @@ export default async function StudioPage() {
           </div>
           <div className="w-full md:w-3/5">
             {studio.studioImage ? (
-              <div className="relative h-[700px]">
+              <div className="relative h-[420px] md:h-[700px]">
                 <Image
                   priority
                   src={
@@ -223,7 +223,7 @@ export default async function StudioPage() {
         <div className="flex flex-col md:flex-row items-start gap-8">
           <div className="w-full md:w-1/2">
             {/* Always show image 10 as specified in requirements */}
-            <div className="relative h-[600px]">
+            <div className="relative h-[360px] md:h-[600px]">
               <Image
                 src={
                   typeof studio.servicesImage === 'number'
@@ -261,7 +261,7 @@ export default async function StudioPage() {
           </div>
           <div className="w-full md:w-1/2">
             {/* Always show image 1 as specified in requirements */}
-            <div className="relative h-[600px]">
+            <div className="relative h-[360px] md:h-[600px]">
               <Image
                 src={
                   typeof studio.genresImage === 'number'
@@ -282,7 +282,7 @@ export default async function StudioPage() {
         <div className="flex flex-col md:flex-row items-start gap-8">
           <div className="w-full md:w-1/2">
             {/* Always show image 2 as specified in requirements */}
-            <div className="relative h-[600px]">
+            <div className="relative h-[360px] md:h-[600px]">
               <Image
                 src={
                   typeof studio.elementsImage === 'number'
@@ -333,7 +333,7 @@ export default async function StudioPage() {
           </div>
           <div className="w-full md:w-1/2 space-y-6">
             {studio.gearImage ? (
-              <div className="relative h-[500px]">
+              <div className="relative h-[320px] md:h-[500px]">
                 <Image
                   src={
                     typeof studio.gearImage === 'number'
@@ -357,7 +357,7 @@ export default async function StudioPage() {
                     : gearImage.image.url
 
                 return (
-                  <div key={index} className="relative h-[500px]">
+                  <div key={index} className="relative h-[320px] md:h-[500px]">
                     <Image
                       src={imageUrl}
                       alt={gearImage.alt || 'Studio Gear'}
