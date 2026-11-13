@@ -20,7 +20,7 @@ export default function CreditsTooltip({ description }: CreditsTooltipProps) {
       </span>
       
       {isHovering && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-64 bg-white border border-[#e0d5c8] rounded-sm p-4 shadow-md z-10">
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-64 bg-white border border-[#e0d5c8] rounded-xs p-4 shadow-md z-10">
           <div className="text-xs text-[#b25c65] whitespace-pre-wrap text-left">
             {description}
           </div>

@@ -95,7 +95,7 @@ export default function ContactForm() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+          <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
             <label htmlFor={HONEYPOT_FIELD}>Leave this empty</label>
             <input
               type="text"
@@ -127,7 +127,7 @@ export default function ContactForm() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
-                          focus:ring-2 focus:ring-accent/20 focus:outline-none
+                          focus:ring-2 focus:ring-accent/20 focus:outline-hidden
                           transition-all duration-200"
               />
             </div>
@@ -146,7 +146,7 @@ export default function ContactForm() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
-                          focus:ring-2 focus:ring-accent/20 focus:outline-none
+                          focus:ring-2 focus:ring-accent/20 focus:outline-hidden
                           transition-all duration-200"
               />
             </div>
@@ -167,7 +167,7 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
-                        focus:ring-2 focus:ring-accent/20 focus:outline-none
+                        focus:ring-2 focus:ring-accent/20 focus:outline-hidden
                         transition-all duration-200"
             />
           </div>
@@ -187,7 +187,7 @@ export default function ContactForm() {
               required
               rows={6}
               className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30
-                        focus:ring-2 focus:ring-accent/20 focus:outline-none
+                        focus:ring-2 focus:ring-accent/20 focus:outline-hidden
                         transition-all duration-200 resize-none"
             />
           </div>

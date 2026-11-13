@@ -87,7 +87,7 @@ export default async function MusicPage() {
           {/* Player moved to the right */}
           {music?.spotify_embeds && Array.isArray(music.spotify_embeds) && music.spotify_embeds.length > 0 && (
             <div className="flex-1">
-              <div className="aspect-[4/5] w-full">
+              <div className="aspect-4/5 w-full">
                 <iframe
                   src={music.spotify_embeds[0].embedUrl}
                   width="100%"

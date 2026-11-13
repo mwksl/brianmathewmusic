@@ -55,7 +55,7 @@ export default async function Home() {
           <Link href="/music" 
                 className="group">
             <div className="space-y-3">
-              <div className="aspect-[16/9] relative overflow-hidden rounded-lg shadow-lg">
+              <div className="aspect-video relative overflow-hidden rounded-lg shadow-lg">
                 {musicImageUrl && (
                   <Image
                     src={musicImageUrl}
@@ -75,7 +75,7 @@ export default async function Home() {
           <Link href="/studio"
                 className="group">
             <div className="space-y-3">
-              <div className="aspect-[16/9] relative overflow-hidden rounded-lg shadow-lg">
+              <div className="aspect-video relative overflow-hidden rounded-lg shadow-lg">
                 {studioImageUrl && (
                   <Image
                     src={studioImageUrl}
