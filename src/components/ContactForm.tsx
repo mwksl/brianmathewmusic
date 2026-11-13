@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { CONTACT_LIMITS, HONEYPOT_FIELD } from '@/utilities/contactForm';
 
 export default function ContactForm() {
   const formRef = useRef(null);
@@ -12,6 +13,7 @@ export default function ContactForm() {
     email: '',
     subject: '',
     message: '',
+    [HONEYPOT_FIELD]: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -36,14 +38,13 @@ export default function ContactForm() {
       });
 
       const data = await response.json();
-      console.log('Response:', data); // Add logging to debug
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to send message');
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '', [HONEYPOT_FIELD]: '' });
     } catch (error) {
       console.error('Form submission error:', error);
       setStatus('error');
@@ -94,6 +95,22 @@ export default function ContactForm() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+            <label htmlFor={HONEYPOT_FIELD}>Leave this empty</label>
+            <input
+              type="text"
+              id={HONEYPOT_FIELD}
+              name={HONEYPOT_FIELD}
+              tabIndex={-1}
+              autoComplete="off"
+              data-1p-ignore
+              data-lpignore="true"
+              data-bwignore
+              data-form-type="other"
+              value={formData[HONEYPOT_FIELD]}
+              onChange={handleChange}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label htmlFor="name" className="block text-sm font-mono">
@@ -104,6 +121,7 @@ export default function ContactForm() {
                 transition={{ duration: 0.2 }}
                 type="text"
                 id="name"
+                maxLength={CONTACT_LIMITS.name}
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -122,6 +140,7 @@ export default function ContactForm() {
                 transition={{ duration: 0.2 }}
                 type="email"
                 id="email"
+                maxLength={CONTACT_LIMITS.email}
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -142,6 +161,7 @@ export default function ContactForm() {
               transition={{ duration: 0.2 }}
               type="text"
               id="subject"
+                maxLength={CONTACT_LIMITS.subject}
               name="subject"
               value={formData.subject}
               onChange={handleChange}
@@ -160,6 +180,7 @@ export default function ContactForm() {
               whileFocus={{ scale: 1.01 }}
               transition={{ duration: 0.2 }}
               id="message"
+                maxLength={CONTACT_LIMITS.message}
               name="message"
               value={formData.message}
               onChange={handleChange}
