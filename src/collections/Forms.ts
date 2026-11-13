@@ -1,17 +1,22 @@
 import { CollectionConfig } from 'payload'
 
+const escapeHtml = (value: unknown) =>
+  String(value ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
+
 export const Forms: CollectionConfig = {
   slug: 'forms',
   admin: {
     useAsTitle: 'name',
   },
   access: {
-    create: () => true, // Allow public form submissions
-    read: () => false, // Restrict reading to admins only
+    create: () => false, // Submissions go through /api/forms (local API), never the public REST/GraphQL API
+    read: ({ req: { user } }) => Boolean(user), // Admins only (every user is an admin)
   },
   hooks: {
     afterChange: [
-      async ({ doc, req }) => {
+      async ({ doc, req, operation }) => {
+        if (operation !== 'create') return
+
         if (req.payload) {
           try {
             await req.payload.sendEmail({
@@ -19,10 +24,10 @@ export const Forms: CollectionConfig = {
               subject: `New Contact Form Submission: ${doc.subject}`,
               html: `
                 <h3>New Contact Form Submission</h3>
-                <p><strong>Name:</strong> ${doc.name}</p>
-                <p><strong>Email:</strong> ${doc.email}</p>
-                <p><strong>Subject:</strong> ${doc.subject}</p>
-                <p><strong>Message:</strong> ${doc.message}</p>
+                <p><strong>Name:</strong> ${escapeHtml(doc.name)}</p>
+                <p><strong>Email:</strong> ${escapeHtml(doc.email)}</p>
+                <p><strong>Subject:</strong> ${escapeHtml(doc.subject)}</p>
+                <p><strong>Message:</strong> ${escapeHtml(doc.message)}</p>
               `,
             })
           } catch (error) {

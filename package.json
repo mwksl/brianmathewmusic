@@ -21,6 +21,7 @@
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
     "@payloadcms/storage-vercel-blob": "latest",
+    "botid": "^1.5.13",
     "cross-env": "^7.0.3",
     "framer-motion": "^11.17.0",
     "graphql": "^16.8.1",
