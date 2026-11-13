@@ -1,11 +1,10 @@
 // storage-adapter-import-placeholder
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, inMemoryKVAdapter } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -31,6 +30,8 @@ export default buildConfig({
   },
   collections: [Users, Media, MediaWithPrefix, Pages, Discography, Navigation, Studio, Music, Forms],
   editor: lexicalEditor(),
+  // Default KV adapter needs a payload_kv table that prod doesn't have (see Users.ts).
+  kv: inMemoryKVAdapter(),
   secret: process.env.PAYLOAD_SECRET || '',
   email: resendAdapter({
     apiKey: process.env.RESEND_API_KEY || '',
@@ -47,7 +48,6 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
     vercelBlobStorage({
       enabled: true,
       collections: {
