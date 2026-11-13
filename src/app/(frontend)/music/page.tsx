@@ -33,12 +33,12 @@ export default async function MusicPage() {
     <>
       <Navigation />
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-playfair mb-8">Original Music</h1>
+        <h1 className="text-4xl md:text-5xl mb-8">Original Music</h1>
         
         {/* About Section and Music Player in flex layout */}
         <section className="mb-16 flex flex-col md:flex-row gap-8">
           <div className="max-w-xl">
-            <p className="text-lg font-inter text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-700 leading-relaxed">
               {music?.about || 'Original compositions and musical collaborations by Brian Mathew.'}
             </p>
             
@@ -100,7 +100,7 @@ export default async function MusicPage() {
                 />
               </div>
               {music.spotify_embeds[0].description && (
-                <p className="mt-4 text-gray-700 font-inter leading-relaxed text-center">
+                <p className="mt-4 text-gray-700 leading-relaxed text-center">
                   {music.spotify_embeds[0].description}
                 </p>
               )}

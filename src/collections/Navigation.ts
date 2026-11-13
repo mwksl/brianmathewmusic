@@ -1,7 +1,9 @@
 import { CollectionConfig } from 'payload';
+import { revalidateHooks } from '@/utilities/revalidate'
 
 export const Navigation: CollectionConfig = {
   slug: 'navigation',
+  hooks: revalidateHooks('navigation'),
   access: {
     read: () => true,
   },

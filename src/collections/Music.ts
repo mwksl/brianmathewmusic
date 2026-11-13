@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload';
+import { revalidateHooks } from '@/utilities/revalidate'
 
 const convertToEmbedUrl = (url: string): string => {
   try {
@@ -19,6 +20,7 @@ const convertToEmbedUrl = (url: string): string => {
 
 export const Music: CollectionConfig = {
   slug: 'music',
+  hooks: revalidateHooks('music'),
   admin: {
     useAsTitle: 'about',
   },

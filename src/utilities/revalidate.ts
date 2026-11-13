@@ -1,4 +1,5 @@
-import type { Payload } from 'payload'
+import type { CollectionConfig, Payload } from 'payload'
+import { revalidatePath } from 'next/cache'
 
 // Determine which paths to revalidate based on the collection and document
 const getRevalidationPaths = (collection: string, doc: any): string[] => {
@@ -27,29 +28,29 @@ const getRevalidationPaths = (collection: string, doc: any): string[] => {
   }
 }
 
-export const revalidate = async (args: {
+// Payload runs inside the Next.js server, so hooks can clear the page cache directly
+// instead of calling an HTTP endpoint.
+export const revalidate = ({
+  payload,
+  collection,
+  doc,
+}: {
   collection: string
   doc: any
   payload: Payload
-}): Promise<void> => {
-  const { payload, collection, doc } = args
-  const pathsToRevalidate = getRevalidationPaths(collection, doc)
-
-  try {
-    // Revalidate each path
-    for (const path of pathsToRevalidate) {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}&path=${path}`,
-        { cache: 'no-cache' }
-      )
-
-      if (res.ok) {
-        payload.logger.info(`Revalidated path '${path}'`)
-      } else {
-        payload.logger.error(`Error revalidating path '${path}': ${res.status} ${res.statusText}`)
-      }
+}): void => {
+  for (const path of getRevalidationPaths(collection, doc)) {
+    try {
+      revalidatePath(path)
+      payload.logger.info(`Revalidated path '${path}'`)
+    } catch (err: unknown) {
+      // Throws outside a Next.js request (e.g. `payload run` scripts); nothing is cached there.
+      payload.logger.error(`Error revalidating path '${path}': ${err}`)
     }
-  } catch (err: unknown) {
-    payload.logger.error(`Error hitting revalidate route: ${err}`)
   }
 }
+
+export const revalidateHooks = (collection: string): CollectionConfig['hooks'] => ({
+  afterChange: [({ doc, req }) => revalidate({ collection, doc, payload: req.payload })],
+  afterDelete: [({ doc, req }) => revalidate({ collection, doc, payload: req.payload })],
+})
