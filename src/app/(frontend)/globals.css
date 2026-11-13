@@ -1,38 +1,104 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  --background: #F5E6D3;
-  --foreground: #2D1810;
-  --accent: #A45D5D;
-  --accent-light: #C17C74;
-  --text-muted: #7D4F50;
+@theme {
+  --font-mono: var(--font-space-mono);
+  --font-heading: var(--font-custom), serif;
+  --font-sans: var(--font-custom), serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-text-muted: var(--text-muted);
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  background-image: 
-    linear-gradient(rgba(164, 93, 93, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(164, 93, 93, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-attachment: fixed;
-  position: relative;
-  font-family: 'Space Mono', monospace;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* Tailwind v4 preflight no longer gives buttons a pointer cursor; keep v3 behavior. */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, 
-    rgba(164, 93, 93, 0.1) 0%, 
-    rgba(164, 93, 93, 0.05) 45%, 
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 0;
+@utility nav-link {
+  @apply relative inline-block text-foreground hover:text-accent transition-colors;
+
+  &::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+  }
+
+  &:hover::after {
+    @apply w-full;
+  }
+}
+
+@utility grid-texture {
+  @apply relative;
+
+  &::before {
+    @apply content-[''] absolute inset-0 pointer-events-none;
+    background-image:
+      linear-gradient(to right, var(--accent) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--accent) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.05;
+  }
+}
+
+@utility service-title {
+  @apply text-xl text-accent uppercase tracking-wider;
+}
+
+@layer utilities {
+  :root {
+    --background: #f5e6d3;
+    --foreground: #2d1810;
+    --accent: #a45d5d;
+    --accent-light: #c17c74;
+    --text-muted: #7d4f50;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    background-image:
+      linear-gradient(rgba(164, 93, 93, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(164, 93, 93, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-attachment: fixed;
+    position: relative;
+    font-family: 'Space Mono', monospace;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(164, 93, 93, 0.1) 0%,
+      rgba(164, 93, 93, 0.05) 45%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 @layer base {
@@ -43,37 +109,6 @@ body::before {
   .form-input,
   .form-textarea,
   .form-select {
-    @apply bg-white/30 border-0 backdrop-blur-sm rounded-lg shadow-sm;
-  }
-}
-
-@layer components {
-  .nav-link {
-    @apply relative inline-block text-foreground hover:text-accent transition-colors;
-  }
-  
-  .nav-link::after {
-    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
-  }
-  
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-
-  .grid-texture {
-    @apply relative;
-  }
-
-  .grid-texture::before {
-    @apply content-[''] absolute inset-0 pointer-events-none;
-    background-image: 
-      linear-gradient(to right, var(--accent) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--accent) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.05;
-  }
-
-  .service-title {
-    @apply text-xl text-accent uppercase tracking-wider;
+    @apply bg-white/30 border-0 backdrop-blur-xs rounded-lg shadow-xs;
   }
 }

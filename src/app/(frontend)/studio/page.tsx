@@ -180,7 +180,7 @@ export default async function StudioPage() {
                 return (
                   <div
                     key={sample.id || index}
-                    className="border border-[#e0d5c8] p-4 rounded-sm w-64"
+                    className="border border-[#e0d5c8] p-4 rounded-xs w-64"
                   >
                     <h3 className="font-mono text-base mb-4 text-[#b25c65] tracking-wide uppercase min-h-[50px] line-clamp-2">
                       {sample.title}
